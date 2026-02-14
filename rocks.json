@@ -1,0 +1,38 @@
+{
+  "rocks": [
+    {
+      "id": "rock_001",
+      "name": "Rock Specimen #001",
+      "nickname": "Green Goblin",
+      "type": "Unknown (possibly alien origin)",
+      "documentationLevel": "mystery",
+      "location": {
+        "found": "unknown",
+        "coordinates": null,
+        "context": "discovered in a box with 39 other rocks"
+      },
+      "dateFound": {
+        "date": null,
+        "accuracy": "unknown",
+        "estimate": "sometime between 2014-2024"
+      },
+      "size": {
+        "length": 4.7,
+        "width": 3.2,
+        "height": 2.8,
+        "unit": "cm",
+        "confidence": "eyeballed it"
+      },
+      "weight": {
+        "value": 127.5,
+        "unit": "grams",
+        "confidence": "vibes-based"
+      },
+      "notes": "Green. Very green. Possibly jade? Possibly painted? The world may never know.",
+      "media": {
+        "modelUrl": "models/greengoblin.glb",
+        "thumbnailUrl": null
+      }
+    }
+  ]
+}

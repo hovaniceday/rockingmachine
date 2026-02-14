@@ -51,16 +51,59 @@
     font-style: italic;
     color: #666;
 }
+
+#rockInfo {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border: 2px solid #333;
+    max-width: 350px;
+    font-size: 13px;
+}
+
+#rockInfo h2 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+}
+
+#rockNickname {
+    font-style: italic;
+    color: #666;
+    margin: 0 0 15px 0;
+}
+
+.info-row {
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.info-row strong {
+    display: inline-block;
+    min-width: 90px;
+}
     </style>
 </head>
 <body>
     <h1>JZ ROCKS 🪨</h1>
 
     <div id="controls">
-        <label for="speedSlider">rotation speed:</label>
-        <input type="range" id="speedSlider" min="0" max="100" value="25">
-        <span id="speedLabel">lazy susan</span>
-    </div>
+    <label for="speedSlider">rotation speed:</label>
+    <input type="range" id="speedSlider" min="0" max="100" value="25">
+    <span id="speedLabel">lazy susan</span>
+</div>
+
+<div id="rockInfo">
+    <h2 id="rockName">Loading...</h2>
+    <p id="rockNickname"></p>
+    <div class="info-row"><strong>Type:</strong> <span id="rockType"></span></div>
+    <div class="info-row"><strong>Location:</strong> <span id="rockLocation"></span></div>
+    <div class="info-row"><strong>Date Found:</strong> <span id="rockDate"></span></div>
+    <div class="info-row"><strong>Size:</strong> <span id="rockSize"></span></div>
+    <div class="info-row"><strong>Weight:</strong> <span id="rockWeight"></span></div>
+    <div class="info-row"><strong>Notes:</strong> <span id="rockNotes"></span></div>
+</div>
 
     <div id="container"></div>
 
@@ -171,6 +214,29 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
+
+        // Load rock data
+fetch('rocks.json')
+    .then(response => response.json())
+    .then(data => {
+        const rock = data.rocks[0]; // Get first rock
+        
+        document.getElementById('rockName').textContent = rock.name;
+        document.getElementById('rockNickname').textContent = `"${rock.nickname}"`;
+        document.getElementById('rockType').textContent = rock.type;
+        document.getElementById('rockLocation').textContent = 
+            rock.location.found === "unknown" 
+                ? `${rock.location.found} (${rock.location.context})`
+                : rock.location.found;
+        document.getElementById('rockDate').textContent = 
+            rock.dateFound.estimate || rock.dateFound.date || "unknown";
+        document.getElementById('rockSize').textContent = 
+            `${rock.size.length} × ${rock.size.width} × ${rock.size.height} ${rock.size.unit} (${rock.size.confidence})`;
+        document.getElementById('rockWeight').textContent = 
+            `${rock.weight.value} ${rock.weight.unit} (${rock.weight.confidence})`;
+        document.getElementById('rockNotes').textContent = rock.notes;
+    })
+    .catch(error => console.error('Error loading rock data:', error));
     </script>
 </body>
 </html>
