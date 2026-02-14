@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rockingmachine 🪨</title>
+    <title>JZ ROCKS 🪨</title>
     <style>
         body {
             margin: 0;
@@ -25,10 +25,43 @@
             color: #333;
             font-size: 24px;
         }
+        #controls {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border: 2px solid #333;
+    font-size: 14px;
+}
+
+#controls label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#speedSlider {
+    width: 200px;
+    margin-bottom: 5px;
+}
+
+#speedLabel {
+    display: block;
+    font-style: italic;
+    color: #666;
+}
     </style>
 </head>
 <body>
-    <h1>rockingmachine 🪨</h1>
+    <h1>JZ ROCKS 🪨</h1>
+
+    <div id="controls">
+        <label for="speedSlider">rotation speed:</label>
+        <input type="range" id="speedSlider" min="0" max="100" value="25">
+        <span id="speedLabel">lazy susan</span>
+    </div>
+
     <div id="container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -83,13 +116,42 @@
             }
         );
         
+        // Rotation speed control
+        let rotationSpeed = 0.005;
+
+        const slider = document.getElementById('speedSlider');
+        const speedLabel = document.getElementById('speedLabel');
+
+        slider.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            
+            // Map slider value (0-100) to rotation speed
+            rotationSpeed = value * 0.005; // 0 to 0.5
+            
+            // Update label based on speed
+            if (value === 0) {
+                speedLabel.textContent = 'ice age';
+            } else if (value < 10) {
+                speedLabel.textContent = 'tourists in subway';
+            } else if (value < 30) {
+                speedLabel.textContent = 'lazy susan';
+            } else if (value < 50) {
+                speedLabel.textContent = 'pleasant spin';
+            } else if (value < 70) {
+                speedLabel.textContent = 'weeohweeohwee';
+            } else if (value < 90) {
+                speedLabel.textContent = 'am i throwing up';
+            } else {
+                speedLabel.textContent = 'GET IN THE CHOPPA';
+            }
+        });
+
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
             
-            // Slow auto-rotation
             if (rock) {
-                rock.rotation.y += 0.005;
+                rock.rotation.y += rotationSpeed;
             }
             
             controls.update();
