@@ -5,67 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JZ ROCKS 🪨 - Catalog</title>
     <style>
-        body {
-            margin: 0;
-            padding: 40px;
-            font-family: 'Courier New', monospace;
-            background: #f5f5dc;
-        }
-        
-        h1 {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 40px;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .rock-card {
-            background: white;
-            border: 3px solid #333;
-            padding: 20px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            text-decoration: none;
-            color: #333;
-            display: block;
-        }
-        
-        .rock-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 5px 5px 0 #333;
-        }
-        
-        .rock-viewer {
-            width: 100%;
-            height: 250px;
-            background: #f5f5dc;
-            margin-bottom: 15px;
-        }
-        
-        .rock-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .rock-nickname {
-            font-style: italic;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        .rock-info {
-            font-size: 13px;
-            line-height: 1.6;
-        }
-    </style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Fredoka:wght@500&display=swap');
+    
+    body {
+        margin: 0;
+        padding: 40px;
+        font-family: 'Space Mono', monospace;
+        background: #f5f5dc;
+        background-image: 
+            repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0,0,0,.02) 50px, rgba(0,0,0,.02) 51px),
+            repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0,0,0,.02) 50px, rgba(0,0,0,.02) 51px);
+    }
+    
+    h1 {
+        text-align: center;
+        font-family: 'Fredoka', sans-serif;
+        font-size: 48px;
+        margin-bottom: 10px;
+        color: #333;
+        text-shadow: 3px 3px 0 #d4a574;
+        letter-spacing: 2px;
+    }
+    
+    h1::before {
+        content: "━━━ ";
+        color: #8b7355;
+    }
+    
+    h1::after {
+        content: " ━━━";
+        color: #8b7355;
+    }
+    
+    .subtitle {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 40px;
+        font-style: italic;
+    }
+    
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .rock-card {
+        background: white;
+        border: 4px solid #333;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        color: #333;
+        display: block;
+        position: relative;
+        box-shadow: 0 0 0 rgba(0,0,0,0);
+    }
+    
+    .rock-card::before {
+        content: "view";
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 11px;
+        opacity: 0;
+        transition: opacity 0.2s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: bold;
+        color: #8b7355;
+    }
+    
+    .rock-card:hover {
+        transform: translateY(-8px) rotate(-1deg);
+        box-shadow: 8px 8px 0 #333;
+        border-color: #8b7355;
+    }
+    
+    .rock-card:hover::before {
+        opacity: 1;
+    }
+    
+    .rock-viewer {
+        width: 100%;
+        height: 250px;
+        background: linear-gradient(135deg, #f5f5dc 0%, #e8dcc4 100%);
+        margin-bottom: 15px;
+        border: 2px dashed #ccc;
+    }
+    
+    .rock-name {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    
+    .rock-nickname {
+        font-style: italic;
+        color: #8b7355;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    
+    .rock-nickname::before {
+        content: "aka ";
+        font-style: normal;
+        opacity: 0.6;
+    }
+    
+    .rock-info {
+        font-size: 12px;
+        line-height: 1.8;
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+        margin-top: 10px;
+    }
+    
+    .rock-info strong {
+        color: #8b7355;
+    }
+    
+    /* Fun footer */
+    .footer {
+        text-align: center;
+        margin-top: 60px;
+        padding: 20px;
+        font-size: 12px;
+        color: #999;
+        border-top: 2px dashed #ccc;
+    }
+</style>
 </head>
 <body>
     <h1>🪨 JZ ROCKS 🪨</h1>
@@ -164,5 +238,9 @@
             animate();
         }
     </script>
+
+    <div class="footer">
+    est. ~2014 · catalog in progress · rocks do not judge you
+</div>
 </body>
 </html>

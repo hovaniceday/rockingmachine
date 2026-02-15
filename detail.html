@@ -5,85 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JZ ROCKS 🪨</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Courier New', monospace;
-            background: #f5f5dc;
-        }
-        
-        #container {
-            width: 100vw;
-            height: 100vh;
-        }
-        
-        h1 {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            margin: 0;
-            color: #333;
-            font-size: 24px;
-        }
-        #controls {
-    position: absolute;
-    top: 60px;
-    left: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 15px;
-    border: 2px solid #333;
-    font-size: 14px;
-}
-
-#controls label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-#speedSlider {
-    width: 200px;
-    margin-bottom: 5px;
-}
-
-#speedLabel {
-    display: block;
-    font-style: italic;
-    color: #666;
-}
-
-#rockInfo {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border: 2px solid #333;
-    max-width: 350px;
-    font-size: 13px;
-}
-
-#rockInfo h2 {
-    margin: 0 0 5px 0;
-    font-size: 18px;
-}
-
-#rockNickname {
-    font-style: italic;
-    color: #666;
-    margin: 0 0 15px 0;
-}
-
-.info-row {
-    margin: 8px 0;
-    line-height: 1.4;
-}
-
-.info-row strong {
-    display: inline-block;
-    min-width: 90px;
-}
-    </style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Fredoka:wght@500&display=swap');
+    
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Space Mono', monospace;
+        background: #f5f5dc;
+        background-image: 
+            repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0,0,0,.02) 50px, rgba(0,0,0,.02) 51px),
+            repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0,0,0,.02) 50px, rgba(0,0,0,.02) 51px);
+    }
+    
+    #container {
+        width: 100vw;
+        height: 100vh;
+    }
+    
+    h1 {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        margin: 0;
+        color: #333;
+        font-family: 'Fredoka', sans-serif;
+        font-size: 28px;
+        text-shadow: 2px 2px 0 #d4a574;
+        z-index: 100;
+    }
+    
+    h1 a {
+        color: inherit;
+        text-decoration: none;
+    }
+    
+    h1 a:hover {
+        color: #8b7355;
+    }
+    
+    #controls {
+        position: absolute;
+        top: 70px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        border: 3px solid #333;
+        font-size: 14px;
+        box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+    }
+    
+    #controls label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #8b7355;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+    
+    #speedSlider {
+        width: 200px;
+        margin-bottom: 5px;
+    }
+    
+    #speedLabel {
+        display: block;
+        font-style: italic;
+        color: #666;
+        font-size: 13px;
+        min-height: 18px;
+    }
+    
+    #speedLabel::before {
+        content: "→ ";
+        opacity: 0.4;
+    }
+    
+    #rockInfo {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border: 3px solid #333;
+        max-width: 350px;
+        font-size: 13px;
+        box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+    }
+    
+    #rockInfo h2 {
+        margin: 0 0 5px 0;
+        font-size: 20px;
+        color: #333;
+        font-family: 'Fredoka', sans-serif;
+    }
+    
+    #rockNickname {
+        font-style: italic;
+        color: #8b7355;
+        margin: 0 0 15px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px dashed #ddd;
+    }
+    
+    #rockNickname::before {
+        content: "aka ";
+        font-style: normal;
+        opacity: 0.6;
+    }
+    
+    .info-row {
+        margin: 8px 0;
+        line-height: 1.6;
+    }
+    
+    .info-row strong {
+        display: inline-block;
+        min-width: 90px;
+        color: #8b7355;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+</style>
 </head>
 <body>
     <h1>JZ ROCKS 🪨</h1>
