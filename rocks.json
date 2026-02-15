@@ -33,6 +33,40 @@
         "modelUrl": "models/greengoblin.glb",
         "thumbnailUrl": null
       }
+    },
+{
+      "id": "rock_002",
+      "name": "Rock Specimen #002",
+      "nickname": "Alex's Rock",
+      "type": "Sort of lava looking rock(???)",
+      "documentationLevel": "mystery",
+      "location": {
+        "found": "Fire Nation",
+        "coordinates": null,
+        "context": "???"
+      },
+      "dateFound": {
+        "date": null,
+        "accuracy": "unknown",
+        "estimate": "the before times"
+      },
+      "size": {
+        "length": 0,
+        "width": 0,
+        "height": 0,
+        "unit": "cm",
+        "confidence": "too lazy to measure"
+      },
+      "weight": {
+        "value": 0,
+        "unit": "grams",
+        "confidence": "I guessed"
+      },
+      "notes": "This was Alex's first photogrammetry rock!!!!!!",
+      "media": {
+        "modelUrl": "models/alexrock.glb",
+        "thumbnailUrl": null
+      }
     }
   ]
 }
