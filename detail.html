@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JZ ROCKS 🪨</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+            background: #f5f5dc;
+        }
+        
+        #container {
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        h1 {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            margin: 0;
+            color: #333;
+            font-size: 24px;
+        }
+        #controls {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border: 2px solid #333;
+    font-size: 14px;
+}
+
+#controls label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#speedSlider {
+    width: 200px;
+    margin-bottom: 5px;
+}
+
+#speedLabel {
+    display: block;
+    font-style: italic;
+    color: #666;
+}
+
+#rockInfo {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border: 2px solid #333;
+    max-width: 350px;
+    font-size: 13px;
+}
+
+#rockInfo h2 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+}
+
+#rockNickname {
+    font-style: italic;
+    color: #666;
+    margin: 0 0 15px 0;
+}
+
+.info-row {
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.info-row strong {
+    display: inline-block;
+    min-width: 90px;
+}
+    </style>
+</head>
+<body>
+    <h1>JZ ROCKS 🪨</h1>
+
+    <div id="controls">
+    <label for="speedSlider">rotation speed:</label>
+    <input type="range" id="speedSlider" min="0" max="100" value="25">
+    <span id="speedLabel">lazy susan</span>
+</div>
+
+<div id="rockInfo">
+    <h2 id="rockName">Loading...</h2>
+    <p id="rockNickname"></p>
+    <div class="info-row"><strong>Type:</strong> <span id="rockType"></span></div>
+    <div class="info-row"><strong>Location:</strong> <span id="rockLocation"></span></div>
+    <div class="info-row"><strong>Date Found:</strong> <span id="rockDate"></span></div>
+    <div class="info-row"><strong>Size:</strong> <span id="rockSize"></span></div>
+    <div class="info-row"><strong>Weight:</strong> <span id="rockWeight"></span></div>
+    <div class="info-row"><strong>Notes:</strong> <span id="rockNotes"></span></div>
+</div>
+
+    <div id="container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <script>
+        // Set up the scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf5f5dc);
+        
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.z = 5;
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('container').appendChild(renderer.domElement);
+        
+        // Add lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.0); //Increased from 0.6
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2); //Increased from 0.8 to 1.2
+        directionalLight.position.set(10, 10, 10);
+        scene.add(directionalLight);
+
+        // Add a second light from the opposite side
+        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight2.position.set(-10, -10, -10);
+        scene.add(directionalLight2);
+        
+        // Add orbit controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        
+        // Load the rock model
+        const loader = new THREE.GLTFLoader();
+        let rock;
+        
+        // Rotation speed control
+        let rotationSpeed = 0.005;
+
+        const slider = document.getElementById('speedSlider');
+        const speedLabel = document.getElementById('speedLabel');
+
+        slider.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            
+            // Map slider value (0-100) to rotation speed
+            rotationSpeed = value * 0.005; // 0 to 0.5
+            
+            // Update label based on speed
+            if (value === 0) {
+                speedLabel.textContent = 'ice age';
+            } else if (value < 10) {
+                speedLabel.textContent = 'tourists in subway';
+            } else if (value < 30) {
+                speedLabel.textContent = 'lazy susan';
+            } else if (value < 50) {
+                speedLabel.textContent = 'pleasant spin';
+            } else if (value < 70) {
+                speedLabel.textContent = 'weeohweeohwee';
+            } else if (value < 90) {
+                speedLabel.textContent = 'am i throwing up';
+            } else {
+                speedLabel.textContent = 'GET IN THE CHOPPA';
+            }
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (rock) {
+                rock.rotation.y += rotationSpeed;
+            }
+            
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+      // Get rock ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const rockId = urlParams.get('id') || 'rock_001'; // Default to first rock
+
+        // Load rock data first, then load the model
+        fetch('rocks.json')
+            .then(response => response.json())
+            .then(data => {
+                const rockData = data.rocks.find(r => r.id === rockId);
+                
+                if (!rockData) {
+                    console.error('Rock not found!');
+                    return;
+                }
+                
+                // Update info panel
+                document.getElementById('rockName').textContent = rockData.name;
+                document.getElementById('rockNickname').textContent = `"${rockData.nickname}"`;
+                document.getElementById('rockType').textContent = rockData.type;
+                document.getElementById('rockLocation').textContent = 
+                    rockData.location.found === "unknown" 
+                        ? `${rockData.location.found} (${rockData.location.context})`
+                        : rockData.location.found;
+                document.getElementById('rockDate').textContent = 
+                    rockData.dateFound.estimate || rockData.dateFound.date || "unknown";
+                document.getElementById('rockSize').textContent = 
+                    `${rockData.size.length} × ${rockData.size.width} × ${rockData.size.height} ${rockData.size.unit} (${rockData.size.confidence})`;
+                document.getElementById('rockWeight').textContent = 
+                    `${rockData.weight.value} ${rockData.weight.unit} (${rockData.weight.confidence})`;
+                document.getElementById('rockNotes').textContent = rockData.notes;
+                
+                // NOW load the correct model
+                const loader = new THREE.GLTFLoader();
+                loader.load(
+                    rockData.media.modelUrl, // Use the model URL from JSON!
+                    function(gltf) {
+                        rock = gltf.scene;
+                        scene.add(rock);
+                        console.log('Rock loaded! 🪨');
+                    },
+                    function(xhr) {
+                        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                    },
+                    function(error) {
+                        console.error('Error loading rock:', error);
+                    }
+                );
+            })
+            .catch(error => console.error('Error loading rock data:', error));
+    </script>
+</body>
+</html>
