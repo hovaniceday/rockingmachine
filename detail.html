@@ -128,16 +128,68 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
+    #patButton {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    text-align: center;
+}
+
+#pat {
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    padding: 15px 30px;
+    background: #fff;
+    border: 3px solid #333;
+    cursor: pointer;
+    transition: all 0.1s;
+    text-transform: lowercase;
+    font-weight: bold;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+#pat:hover {
+    background: #8b7355;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+}
+
+#pat:active {
+    transform: translateY(0);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+#patCount {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#patNumber {
+    font-weight: bold;
+    color: #8b7355;
+    font-size: 14px;
+}
 </style>
 </head>
 <body>
-    <h1>JZ ROCKS 🪨</h1>
+<h1><a href="index.html">← JZ ROCKS</a></h1>
 
     <div id="controls">
     <label for="speedSlider">rotation speed:</label>
     <input type="range" id="speedSlider" min="0" max="100" value="25">
     <span id="speedLabel">lazy susan</span>
 </div>
+
+<div id="patButton">
+    <button id="pat">pat the rock</button>
+    <div id="patCount">pats: <span id="patNumber">0</span></div>
+</div>
+
+<div id="container"></div>
 
 <div id="rockInfo">
     <h2 id="rockName">Loading...</h2>
@@ -190,8 +242,7 @@
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         
-        // Load the rock model
-        const loader = new THREE.GLTFLoader();
+        // Rock will be loaded after fetching JSON data
         let rock;
         
         // Rotation speed control
@@ -294,6 +345,44 @@
                 );
             })
             .catch(error => console.error('Error loading rock data:', error));
+// Pat the rock button
+let patCount = 0;
+const patButton = document.getElementById('pat');
+const patNumber = document.getElementById('patNumber');
+
+// Placeholder sound effect (we'll make actual sounds later)
+const patSounds = [
+    'thunk',
+    'bonk', 
+    'clonk',
+    'tink',
+    'donk'
+];
+
+patButton.addEventListener('click', function() {
+    patCount++;
+    patNumber.textContent = patCount;
+    
+    // Random sound text (placeholder until we add real audio)
+    const randomSound = patSounds[Math.floor(Math.random() * patSounds.length)];
+    console.log(`*${randomSound}*`);
+    
+    // Fun animation
+    if (rock) {
+        // Make rock wiggle slightly
+        const originalRotation = rock.rotation.x;
+        rock.rotation.x = originalRotation + 0.1;
+        setTimeout(() => {
+            rock.rotation.x = originalRotation;
+        }, 100);
+    }
+    
+    // Button feedback
+    this.textContent = randomSound + '!';
+    setTimeout(() => {
+        this.textContent = 'pat the rock';
+    }, 200);
+});
     </script>
 </body>
 </html>
